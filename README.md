@@ -33,7 +33,7 @@ Screenshots
 
 ReginScanner reports system as clean
 
-![ReginScannerScreen](/screens/1?raw=true "ReginScanner detecting file name IOC")
+![ReginScannerScreen](/screens/1.png?raw=true "ReginScanner detecting file name IOC")
 
 ReginScanner with detections
 
