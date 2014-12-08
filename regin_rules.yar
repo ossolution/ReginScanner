@@ -1,3 +1,87 @@
+/* Scroll down to find a YARA rule set to detect Regin Backdoor samples
+
+Update 06.12.14 11:00
+New False Positives SHA256s and Updated Yara rule "Regin_Sample_1"
+a26db2eb9f3e2509b4eba949db97595cc32332d9321df68283bfc102e66d766f - Windows Serial Driver
+18cd54d163c9c5f16e824d13c411e21fd7616d34e9f1cf2adcbf869ed6aeeed4 - CD Tower Web Client
+
+Update 03.12.14 18:10
+Updated false positives
+
+Update 02.12.14 09:15
+Added new and yet unknown Regin sample found via Virustotal with SHA256
+627dc5599c28de3c494496399b39f3aac7049586e72cbdb08bea01bf40166c23
+
+Update 28.11.14 14:00
+False Positive detected. Microsoft XP USB Scanner Driver. See false positive hash list below.
+Updated rule "Regin_APT_KernelDriver_Generic_B" to exclude string that appears in Windows XP usb scanner driver. 
+
+Update 28.11.14 09:00
+Check out ReginScanner to scan for multiple IOCs at once. It does not ship with the Kaspersky Yara rules. You should include them manually. (see the link below)
+https://github.com/Neo23x0/ReginScanner
+
+Update 27.11.14
+I added a new signature set targeting new samples or samples that were not detected by the generic rules.
+
+Tested on:
+- Windows 7 x64
+- Windows 2003
+- Windows 2008 R2
+
+False Positives:
+The signatures are known to generate False Positives on certain Windows XP USB scanner drivers. (see list below for hashes)
+
+Please check back with an MD5/SHA1/SHA256 hash if you found a sample that has Antivirus hits and is not in this list.
+
+Known sample list - SHA256:
+20831e820af5f41353b5afab659f2ad42ec6df5d9692448872f3ed8bbb40ab92
+225e9596de85ca7b1025d6e444f6a01aa6507feef213f4d2e20da9e7d5d8e430
+392f32241cd3448c7a435935f2ff0d2cdc609dda81dd4946b1c977d25134e96e
+40c46bcab9acc0d6d235491c01a66d4c6f35d884c19c6f410901af6d1e33513b
+4139149552b0322f2c5c993abccc0f0d1b38db4476189a9f9901ac0d57a656be
+4e39bc95e35323ab586d740725a1c8cbcde01fe453f7c4cac7cced9a26e42cc9
+5001793790939009355ba841610412e0f8d60ef5461f2ea272ccf4fd4c83b823
+5c81cf8262f9a8b0e100d2a220f7119e54edfc10c4fb906ab7848a015cd12d90
+627dc5599c28de3c494496399b39f3aac7049586e72cbdb08bea01bf40166c23
+7553d4a5914af58b23a9e0ce6a262cd230ed8bb2c30da3d42d26b295f9144ab7
+7d38eb24cf5644e090e45d5efa923aff0e69a600fb0ab627e8929bb485243926
+8098938987e2f29e3ee416b71b932651f6430d15d885f2e1056d41163ae57c13
+8389b0d3fb28a5f525742ca2bf80a81cf264c806f99ef684052439d6856bc7e7
+8d7be9ed64811ea7986d788a75cbc4ca166702c6ff68c33873270d7c6597f5db
+﻿9cd5127ef31da0e8a4e36292f2af5a9ec1de3b294da367d7c05786fe2d5de44f
+9ddbe7e77cb5616025b92814d68adfc9c3e076dddbe29de6eb73701a172c3379
+a0d82c3730bc41e267711480c8009883d1412b68977ab175421eabc34e4ef355
+a0e3c52a2c99c39b70155a9115a6c74ea79f8a68111190faa45a8fd1e50f8880
+a6603f27c42648a857b8a1cbf301ed4f0877be75627f6bbe99c0bfd9dc4adb35
+a7493fac96345a989b1a03772444075754a2ef11daa22a7600466adc1f69a669
+a7e3ad8ea7edf1ca10b0e5b0d976675c3016e5933219f97e94900dea0d470abe
+a7e3ad8ea7edf1ca10b0e5b0d976675c3016e5933219f97e94900dea0d470abe
+b12c7d57507286bbbe36d7acf9b34c22c96606ffd904e3c23008399a4a50c047
+b755ed82c908d92043d4ec3723611c6c5a7c162e78ac8065eb77993447368fce
+c0cf8e008fbfa0cb2c61d968057b4a077d62f64d7320769982d28107db370513
+cca1850725f278587845cd19cbdf3dceb6f65790d11df950f17c5ff6beb18601
+df77132b5c192bd8d2d26b1ebb19853cf03b01d38afd5d382ce77e0d7219c18c
+e1ba03a10a40aab909b2ba58dcdfd378b4d264f1f4a554b669797bbb8c8ac902
+e420d0cf7a7983f78f5a15e6cb460e93c7603683ae6c41b27bf7f2fa34b2d935
+ecd7de3387b64b7dab9a7fb52e8aa65cb7ec9193f8eac6a7d79407a6a932ef69
+f1d903251db466d35533c28e3c032b7212aa43c8d64ddf8c5521b43031e69e1e
+f89549fc84a8d0f8617841c6aa4bb1678ea2b6081c1f7f74ab1aebd4db4176e4
+fd92fd7d0f925ccc0b4cbb6b402e8b99b64fa6a4636d985d78e5507bd4cfecef
+fe1419e9dde6d479bd7cda27edd39fafdab2668d498931931a2769b370727129
+
+Heavily encrypted - use Hash instead of a Yara rule to detect these samples:
+d42300fea6eddcb2f65ffec9e179e46d87d91affad55510279ecbb0250d7fdff
+
+Known False Positives:
+6e5ebbc8b70c1d593634daf0c190deadfda18c3cbc8f552a76f156f3869ef05b - Microsoft USB Scanner Driver
+7565e7de9532c75b3a16e3ed0103bc092dbca63c6bdc19053dfef01250029e59 - NSRL listed
+a26db2eb9f3e2509b4eba949db97595cc32332d9321df68283bfc102e66d766f - Windows Serial Driver
+18cd54d163c9c5f16e824d13c411e21fd7616d34e9f1cf2adcbf869ed6aeeed4 - CD Tower Web Client
+
+Please check out this URL for the Kaspersky report with more specific Yara rules: 
+https://securelist.com/files/2014/11/Kaspersky_Lab_whitepaper_Regin_platform_eng.pdf 
+*/
+
 rule Regin_APT_KernelDriver_Generic_A {
 	meta:
 		description = "Generic rule for Regin APT kernel driver Malware - Symantec http://t.co/qu53359Cb2"
@@ -71,10 +155,13 @@ rule Regin_APT_KernelDriver_Generic_B {
 		$z3 = "ZwQueryInformationFile" fullword ascii
 		$z4 = "wcslen" fullword ascii
 		$z5 = "atoi" fullword ascii
+
+		$fp1 = "\\\\.\\Usbscan" wide fullword
 	condition:
 		$m0 at 0 and all of ($s*) and 
 		( all of ($v*) or all of ($w*) or all of ($x*) or all of ($y*) or all of ($z*) ) 
 		and filesize < 20KB
+		and not $fp1
 }
 
 rule Regin_APT_KernelDriver_Generic_C {
@@ -126,8 +213,8 @@ rule Regin_sig_svcsstat {
 rule Regin_Sample_1 {
 	meta:
 		description = "Auto-generated rule - file-3665415_sys"
-		author = "@MalwrSignatures"
-		date = "26.11.14"
+		author = "Florian Roth"
+		date = "06.12.14"
 		hash = "773d7fab06807b5b1bc2d74fa80343e83593caf2"
 	strings:
 		$s0 = "Getting PortName/Identifier failed - %x" fullword ascii
@@ -146,8 +233,10 @@ rule Regin_Sample_1 {
 		$s14 = "'user registry info - userAddressSpace: %d" fullword ascii
 		$s15 = "SerialAddDevice: Enumeration request, returning NO_MORE_ENTRIES" fullword ascii
 		$s20 = "'user registry info - userIndexed: %d" fullword ascii
+
+		$fp1 = "Enter SerialBuildResourceList" ascii fullword
 	condition:
-		all of them and filesize < 110KB and filesize > 80KB
+		all of them and filesize < 110KB and filesize > 80KB and not $fp1
 }
 
 rule Regin_Sample_2 {
