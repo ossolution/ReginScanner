@@ -108,7 +108,7 @@ EVIL_HASHES = [
     'f1d903251db466d35533c28e3c032b7212aa43c8d64ddf8c5521b43031e69e1e',
     'f89549fc84a8d0f8617841c6aa4bb1678ea2b6081c1f7f74ab1aebd4db4176e4',
     'fd92fd7d0f925ccc0b4cbb6b402e8b99b64fa6a4636d985d78e5507bd4cfecef',
-    'fe1419e9dde6d479bd7cda27edd39fafdab2668d498931931a2769b370727129' 
+    'fe1419e9dde6d479bd7cda27edd39fafdab2668d498931931a2769b370727129',
 ]
 
 class frmMain(QtGui.QMainWindow):
@@ -153,7 +153,6 @@ class frmMain(QtGui.QMainWindow):
             for f in files:
                 x = x+1
         x = 100.0/x
-        print x
 
         for root, directories, files in scandir.walk(scan_path, onerror=walkError, followlinks=False):
                 # Loop through files
@@ -178,7 +177,7 @@ class frmMain(QtGui.QMainWindow):
                     # File Name Checks -------------------------------------------------
                     for file in EVIL_FILES:
                         if file in filePath:
-                            print Fore.RED, "\bREGIN File Name MATCH: %s" % filePath, Fore.WHITE
+                            # print  "\bREGIN File Name MATCH: %s" % filePath
                             compromised = True
 
                     # Yara Check -------------------------------------------------------
@@ -188,7 +187,7 @@ class frmMain(QtGui.QMainWindow):
                                 matches = rules.match(filePath)
                                 if matches:
                                     for match in matches:
-                                        print Fore.RED, "\bREGIN Yara Rule MATCH: %s FILE: %s" % ( match, filePath), Fore.WHITE
+                                        # print  "\bREGIN Yara Rule MATCH: %s FILE: %s" % ( match, filePath)
                                         compromised = True
                             except Exception, e:
                                 print e
@@ -196,7 +195,7 @@ class frmMain(QtGui.QMainWindow):
                     # Hash Check -------------------------------------------------------
                     if file_size < 500000:
                         if sha256(filePath) in EVIL_HASHES:
-                            print Fore.RED, "\bREGIN SHA256 Hash MATCH: %s FILE: %s" % ( sha256(filePath), filePath), Fore.WHITE
+                            # print  "\bREGIN SHA256 Hash MATCH: %s FILE: %s" % ( sha256(filePath), filePath)
                             compromised = True
 
                     # CRC Check --------------------------------------------------------
@@ -220,7 +219,7 @@ class frmMain(QtGui.QMainWindow):
 
 
                         if CRC32custom.encode('hex') == crc2:
-                            print Fore.RED, "\bREGIN Virtual Filesystem MATCH: %s" % filePath, Fore.WHITE
+                            # print  "\bREGIN Virtual Filesystem MATCH: %s" % filePath
                             compromised = True
 
                     except Exception, e:
@@ -235,7 +234,10 @@ class frmMain(QtGui.QMainWindow):
                     QtGui.QApplication.processEvents()
 
         self.ui.scan_progressBar.setValue(100)
-        print compromised
+        if compromised:
+            self.ErrorEvent(u'فایلی مطابق با بدافزار رجین در سیستم شما یافت شد. \n در صورت نیاز به راهنمایی با متخصصان شرکت پیشگامان متن باز تماس بگیرید\n regin@webcare.ir',u'هشدار')
+        else:
+            self.AlertEvent(u'هیچ فایلی منطبق بر رجین پیدا نشد. برای اطلاعات بیشتر می توانید با متخصصان شرکت پیشگامان گسترش متن‌باز تماس بگیرید.\n regin@webcare.ir',u'پایان عملیات')
 
     def closeEvent(self, event):       
         st=u'آیا قصد خروج از برنامه را دارید؟'
