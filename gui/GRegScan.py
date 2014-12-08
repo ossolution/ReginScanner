@@ -13,7 +13,7 @@ class frmMain(QtGui.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.center()
-        self.ui.commandLinkButton.clicked[bool].connect(self.run_scanner)
+        self.ui.RunScanner.clicked[bool].connect(self.run_scanner)
         self.ui.scan_progressBar.setMinimum(0)
         self.ui.scan_progressBar.setMaximum(100)
 #         self.ui.fix_dashes.stateChanged.connect(self.fix_dashes)
