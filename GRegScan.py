@@ -41,6 +41,10 @@ import hashlib
 from PyQt4 import QtGui,QtCore
 from gui import *
 from PyQt4.Qt import QFileDialog
+import ctypes
+
+myappid = 'POS.ReginScanner.AntiVirus.1' # arbitrary string
+ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 
 EVIL_FILES = [
     '\\usbclass.sys',
@@ -120,13 +124,14 @@ class frmMain(QtGui.QMainWindow):
         self.ui.RunScanner.clicked[bool].connect(self.run_scanner)
         self.ui.scan_progressBar.setMinimum(0)
         self.ui.scan_progressBar.setMaximum(100)
+        #self.ui.Pos_logo.mousePressEvent.connect(open_pos)
        
     def run_scanner(self, pressed):
         # Startup
         self.ui.scan_progressBar.setValue(0)
         scan_path = str(QFileDialog.getExistingDirectory(self, u"انتخاب پوشه برای اسکن"))
         self.ui.checkedFiles.clear()
-        self.ui.checkedFiles.append(u'شروع…')
+        self.ui.checkedFiles.append(u'<font color=blue>شروع…</font>')
         if 'WINDIR' in os.environ and scan_path == '':
             scan_path = os.environ['WINDIR']
         elif scan_path == '':
@@ -139,7 +144,8 @@ class frmMain(QtGui.QMainWindow):
 
         # Compiling yara rules
         if os.path.exists('regin_rules.yar'):
-            self.ui.checkedFiles.append(u'آماه سازی …')
+            self.ui.checkedFiles.append(u'<font color=green>آماه سازی …</font>')
+            self.ui.checkedFiles.append(u'<font color=green>ممکن است عملیات کمی زمانبر باشد... صبور باشید</font>')
             QtGui.QApplication.processEvents()
 
             rules = yara.compile('regin_rules.yar')
@@ -266,9 +272,6 @@ class frmMain(QtGui.QMainWindow):
         cp = QtGui.QDesktopWidget().availableGeometry().center()
         qr.moveCenter(cp)
         self.move(qr.topLeft())            
-
-    def scan(self, path):
-        pass
 
 def sha256(filePath):
     try:

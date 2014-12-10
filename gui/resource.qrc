@@ -4,4 +4,7 @@
     <file>github_icon.png</file>
     <file>logo.png</file>
   </qresource>
+  <qresource prefix="fonts">
+    <file>DroidNaskh-Regular.ttf</file>
+  </qresource>
 </RCC>

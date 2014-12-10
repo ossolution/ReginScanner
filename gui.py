@@ -7,51 +7,73 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt4 import QtCore, QtGui
+from PyQt4.QtCore import QString, QLocale, Qt, QSize, QRect, QMetaObject
+from PyQt4.QtGui import QApplication, QLabel, QIcon, QPixmap, QWidget, QFrame, QProgressBar, QTextEdit, QCommandLinkButton, QFont, QCursor, QStatusBar
 import resource_rc
+import webbrowser
+import urllib2
 
 try:
-    _fromUtf8 = QtCore.QString.fromUtf8
+    _fromUtf8 = QString.fromUtf8
 except AttributeError:
     def _fromUtf8(s):
         return s
 
 try:
-    _encoding = QtGui.QApplication.UnicodeUTF8
+    _encoding = QApplication.UnicodeUTF8
     def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig, _encoding)
+        return QApplication.translate(context, text, disambig, _encoding)
 except AttributeError:
     def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig)
+        return QApplication.translate(context, text, disambig)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
+		# Hit URL
+        try:
+			response = urllib2.urlopen('http://regin.webcare.ir/Tester')
+        except:
+			pass
+		
         # Main Window
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
         MainWindow.setEnabled(True)
-        MainWindow.resize(634, 548)
+        MainWindow.setFixedSize(634, 548)
 
         # Icon
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/img/logo.ico")), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        icon = QIcon()
+        icon.addPixmap(QPixmap(_fromUtf8(":/img/logo.png")), QIcon.Normal, QIcon.On)
 
+		# FONT
+        # Set up font:
+		# TODO
+        '''
+        self.fontDB = QFontDatabase()
+        self.fontDB.addApplicationFont(":/fonts/DroidNaskh-Regular.ttf")
+        for item in QFontDatabase().families():
+			try:
+				if item == 'Droid Arabic Naskh':
+					self.font=QFont(str(item),12)
+			except:
+				pass
+        '''
         # Main Window Attr
         MainWindow.setWindowIcon(icon)
         MainWindow.setToolTip(_fromUtf8(""))
-        MainWindow.setLayoutDirection(QtCore.Qt.RightToLeft)
+        MainWindow.setLayoutDirection(Qt.RightToLeft)
         MainWindow.setAutoFillBackground(True)
-        MainWindow.setLocale(QtCore.QLocale(QtCore.QLocale.Persian, QtCore.QLocale.Iran))
-        MainWindow.setIconSize(QtCore.QSize(50, 50))
-        MainWindow.setToolButtonStyle(QtCore.Qt.ToolButtonIconOnly)
+        MainWindow.setLocale(QLocale(QLocale.Persian, QLocale.Iran))
+        MainWindow.setIconSize(QSize(50, 50))
+        MainWindow.setToolButtonStyle(Qt.ToolButtonIconOnly)
 
         # Centeral
-        self.centralwidget = QtGui.QWidget(MainWindow)
+        self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
 
         # Main Frame
-        self.MainFrame = QtGui.QFrame(self.centralwidget)
-        self.MainFrame.setGeometry(QtCore.QRect(6, 6, 621, 481))
-        self.MainFrame.setLayoutDirection(QtCore.Qt.RightToLeft)
+        self.MainFrame = QFrame(self.centralwidget)
+        self.MainFrame.setGeometry(QRect(6, 6, 621, 481))
+        self.MainFrame.setLayoutDirection(Qt.RightToLeft)
         self.MainFrame.setStyleSheet(_fromUtf8(" #MainFrame {\n"
                 "     background-color: white;\n"
                 "     border-style: outset;\n"
@@ -63,13 +85,13 @@ class Ui_MainWindow(object):
                 "     margin-right:0;\n"
                 "     position:absolute;\n"
                 " }"))
-        self.MainFrame.setFrameShape(QtGui.QFrame.StyledPanel)
-        self.MainFrame.setFrameShadow(QtGui.QFrame.Raised)
+        self.MainFrame.setFrameShape(QFrame.StyledPanel)
+        self.MainFrame.setFrameShadow(QFrame.Raised)
         self.MainFrame.setObjectName(_fromUtf8("MainFrame"))
 
         # scan_progressBar
-        self.scan_progressBar = QtGui.QProgressBar(self.MainFrame)
-        self.scan_progressBar.setGeometry(QtCore.QRect(150, 40, 461, 31))
+        self.scan_progressBar = QProgressBar(self.MainFrame)
+        self.scan_progressBar.setGeometry(QRect(150, 40, 461, 31))
         self.scan_progressBar.setStyleSheet(_fromUtf8("QToolTip {\n"
                 "     border: 2px solid darkkhaki;\n"
                 "     padding: 5px;\n"
@@ -80,9 +102,9 @@ class Ui_MainWindow(object):
         self.scan_progressBar.setObjectName(_fromUtf8("scan_progressBar"))
 
         # Log Frame
-        self.LogFrame = QtGui.QFrame(self.MainFrame)
-        self.LogFrame.setGeometry(QtCore.QRect(130, 76, 481, 281))
-        self.LogFrame.setLayoutDirection(QtCore.Qt.RightToLeft)
+        self.LogFrame = QFrame(self.MainFrame)
+        self.LogFrame.setGeometry(QRect(130, 76, 481, 281))
+        self.LogFrame.setLayoutDirection(Qt.RightToLeft)
         self.LogFrame.setStyleSheet(_fromUtf8("#LogFrame {\n"
                 "     background-color: rgb(232, 232, 232);\n"
                 "     border-style: outset;\n"
@@ -94,13 +116,13 @@ class Ui_MainWindow(object):
                 "     margin-right:0;\n"
                 "     position:absolute;\n"
                 "}"))
-        self.LogFrame.setFrameShape(QtGui.QFrame.StyledPanel)
-        self.LogFrame.setFrameShadow(QtGui.QFrame.Raised)
+        self.LogFrame.setFrameShape(QFrame.StyledPanel)
+        self.LogFrame.setFrameShadow(QFrame.Raised)
         self.LogFrame.setObjectName(_fromUtf8("LogFrame"))
 
         # Checked File List
-        self.checkedFiles = QtGui.QTextEdit(self.MainFrame)
-        self.checkedFiles.setGeometry(QtCore.QRect(142, 88, 460, 261))
+        self.checkedFiles = QTextEdit(self.MainFrame)
+        self.checkedFiles.setGeometry(QRect(142, 88, 460, 261))
         self.checkedFiles.setStyleSheet(_fromUtf8("#checkedFiles\n"
                 " {\n"
                 "     border-style: outset;\n"
@@ -120,10 +142,11 @@ class Ui_MainWindow(object):
                 "     opacity: 200; \n"
                 "}"))
         self.checkedFiles.setObjectName(_fromUtf8("checkedFiles"))
+        self.checkedFiles.setReadOnly(True)
 
         # POS logo
-        self.Pos_logo = QtGui.QLabel(self.MainFrame)
-        self.Pos_logo.setGeometry(QtCore.QRect(21, 286, 201, 291))
+        self.Pos_logo = LinkLabel('http://regin.webcare.ir/', self.MainFrame)
+        self.Pos_logo.setGeometry(QRect(21, 286, 201, 291))
         self.Pos_logo.setStyleSheet(_fromUtf8("QToolTip {\n"
                 "     border: 2px solid darkkhaki;\n"
                 "     padding: 5px;\n"
@@ -133,14 +156,14 @@ class Ui_MainWindow(object):
         self.Pos_logo.setObjectName(_fromUtf8("Pos_logo"))
 
         # Run Scanner
-        self.RunScanner = QtGui.QCommandLinkButton(self.MainFrame)
-        self.RunScanner.setGeometry(QtCore.QRect(0, 180, 131, 41))
-        font = QtGui.QFont()
-        font.setFamily(_fromUtf8("B Lotus"))
-        font.setPointSize(18)
+        self.RunScanner = QCommandLinkButton(self.MainFrame)
+        self.RunScanner.setGeometry(QRect(0, 180, 131, 41))
+        font = QFont()
+        font.setFamily("B Lotus")
+        font.setPointSize(14)
         self.RunScanner.setFont(font)
-        self.RunScanner.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.RunScanner.setLayoutDirection(QtCore.Qt.RightToLeft)
+        self.RunScanner.setCursor(QCursor(Qt.PointingHandCursor))
+        self.RunScanner.setLayoutDirection(Qt.RightToLeft)
         self.RunScanner.setAutoFillBackground(False)
         self.RunScanner.setStyleSheet(_fromUtf8("QToolTip {\n"
                 "     border: 2px solid darkkhaki;\n"
@@ -151,8 +174,8 @@ class Ui_MainWindow(object):
         self.RunScanner.setObjectName(_fromUtf8("commandLinkButton"))
 
         # GitHub Logo
-        self.GitHub_logo = QtGui.QLabel(self.MainFrame)
-        self.GitHub_logo.setGeometry(QtCore.QRect(480, 280, 221, 281))
+        self.GitHub_logo = LinkLabel('https://github.com/ossolution/ReginScanner', self.MainFrame)
+        self.GitHub_logo.setGeometry(QRect(480, 280, 221, 281))
         self.GitHub_logo.setStyleSheet(_fromUtf8("QToolTip {\n"
                 "     border: 2px solid darkkhaki;\n"
                 "     padding: 5px;\n"
@@ -162,24 +185,33 @@ class Ui_MainWindow(object):
         self.GitHub_logo.setObjectName(_fromUtf8("GitHub_logo"))
 
         MainWindow.setCentralWidget(self.centralwidget)
-        self.statusbar = QtGui.QStatusBar(MainWindow)
+        self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(_fromUtf8("statusbar"))
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(_translate("MainWindow", "ReginScanner", None))
         MainWindow.setStatusTip(_translate("MainWindow", "نرم افزار اسکن بدافزار رجین. تهیه شده توسط شرکت پیشکامان متن‌باز.", None))
-        self.checkedFiles.setToolTip(_translate("MainWindow", "نمایش وضعیت بررسی فایل‌ها", None))
+        #self.checkedFiles.setToolTip(_translate("MainWindow", "نمایش وضعیت بررسی فایل‌ها", None))
         self.MainFrame.setStatusTip(_translate("MainWindow", "نرم افزار اسکن بدافزار رجین. تهیه شده توسط شرکت پیشکامان متن‌باز.", None))
-        self.Pos_logo.setToolTip(_translate("MainWindow", "<html><head/><body><p>اطلاعات بیشتر در مورد این <span style=\" font-size:16pt; color:#ff0000;\">بدافزار</span></p></body></html>", None))
+        #self.Pos_logo.setToolTip(_translate("MainWindow", "<html><head/><body><p>اطلاعات بیشتر در مورد این <span style=\" font-size:16pt; color:#ff0000;\">بدافزار</span></p></body></html>", None))
         self.Pos_logo.setText(_translate("MainWindow", "<html><head/><body><p><a href=\'http://regin.webcare.ir\'><img src=\":/img/logo.png\"/></a></p></body></html>", None))
-        self.RunScanner.setToolTip(_translate("MainWindow", "شروع اسکن فایل ها", None))
+        #self.RunScanner.setToolTip(_translate("MainWindow", "شروع اسکن فایل ها", None))
         self.RunScanner.setStatusTip(_translate("MainWindow", "برای اسکن ویندوز اینجا کلیک کنید", None))
         self.RunScanner.setWhatsThis(_translate("MainWindow", "شروع اسکن", None))
         self.RunScanner.setText(_translate("MainWindow", "شروع اسکن", None))
-        self.GitHub_logo.setToolTip(_translate("MainWindow", "مشاهده و دریافت کد برنامه", None))
+        #self.GitHub_logo.setToolTip(_translate("MainWindow", "مشاهده و دریافت کد برنامه", None))
         self.GitHub_logo.setText(_translate("MainWindow", "<html><head/><body><p><a href=\"https://github.com/ossolution/ReginScanner\"><img src=\":/img/github_icon.png\"/></a></p></body></html>", None))
 
+class LinkLabel(QLabel):
+	url = ''
+	def __init__(self, url, parent=None):
+		super(LinkLabel, self).__init__(parent)
+		self.url = url
+		
+	def mouseReleaseEvent(self,event):    		
+		webbrowser.open(self.url)
+		
