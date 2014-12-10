@@ -43,8 +43,15 @@ from gui import *
 from PyQt4.Qt import QFileDialog
 import ctypes
 
-myappid = 'POS.ReginScanner.AntiVirus.1' # arbitrary string
-ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
+if sys.platform == "linux" or sys.platform == "linux2":
+    # linux
+	pass
+elif sys.platform == "darwin":
+    # OS X
+	pass
+elif sys.platform == "win32":
+	myappid = 'POS.ReginScanner.AntiVirus.1' # arbitrary string
+	ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 
 EVIL_FILES = [
     '\\usbclass.sys',
