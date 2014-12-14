@@ -43,9 +43,16 @@ from gui import *
 from PyQt4.Qt import QFileDialog
 import ctypes
 
-myappid = 'POS.ReginScanner.AntiVirus.1' # arbitrary string
-ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
-
+if sys.platform == "linux" or sys.platform == "linux2":
+    # linux
+	pass
+elif sys.platform == "darwin":
+    # OS X
+	pass
+elif sys.platform == "win32":
+	myappid = 'POS.ReginScanner.AntiVirus.1' # arbitrary string
+	ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
+	
 EVIL_FILES = [
     '\\usbclass.sys',
     '\\adpu160.sys',
@@ -241,9 +248,9 @@ class frmMain(QtGui.QMainWindow):
 
         self.ui.scan_progressBar.setValue(100)
         if compromised:
-            self.ErrorEvent(u'فایلی مطابق با بدافزار رجین در سیستم شما یافت شد. \n در صورت نیاز به راهنمایی با متخصصان شرکت پیشگامان متن باز تماس بگیرید\n regin@webcare.ir',u'هشدار')
+            self.ErrorEvent(u'فایلی مطابق با بدافزار رجین در سیستم شما یافت شد. \n در صورت نیاز به راهنمایی با متخصصان شرکت پیشگامان متن باز تماس بگیرید\n regin@syscare.ir',u'هشدار')
         else:
-            self.AlertEvent(u'هیچ فایلی منطبق بر رجین پیدا نشد. برای اطلاعات بیشتر می توانید با متخصصان شرکت پیشگامان گسترش متن‌باز تماس بگیرید.\n regin@webcare.ir',u'پایان عملیات')
+            self.AlertEvent(u'هیچ فایلی منطبق بر رجین پیدا نشد. برای اطلاعات بیشتر می توانید با متخصصان شرکت پیشگامان گسترش متن‌باز تماس بگیرید.\n regin@syscare.ir',u'پایان عملیات')
 
     def closeEvent(self, event):       
         st=u'آیا قصد خروج از برنامه را دارید؟'

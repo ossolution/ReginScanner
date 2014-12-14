@@ -31,7 +31,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
 		# Hit URL
         try:
-			response = urllib2.urlopen('http://regin.webcare.ir/Tester')
+			response = urllib2.urlopen('http://regin.syscare.ir/Tester')
         except:
 			pass
 		
@@ -145,7 +145,7 @@ class Ui_MainWindow(object):
         self.checkedFiles.setReadOnly(True)
 
         # POS logo
-        self.Pos_logo = LinkLabel('http://regin.webcare.ir/', self.MainFrame)
+        self.Pos_logo = LinkLabel('http://regin.syscare.ir/', self.MainFrame)
         self.Pos_logo.setGeometry(QRect(21, 286, 201, 291))
         self.Pos_logo.setStyleSheet(_fromUtf8("QToolTip {\n"
                 "     border: 2px solid darkkhaki;\n"
@@ -198,7 +198,7 @@ class Ui_MainWindow(object):
         #self.checkedFiles.setToolTip(_translate("MainWindow", "نمایش وضعیت بررسی فایل‌ها", None))
         self.MainFrame.setStatusTip(_translate("MainWindow", "نرم افزار اسکن بدافزار رجین. تهیه شده توسط شرکت پیشکامان متن‌باز.", None))
         #self.Pos_logo.setToolTip(_translate("MainWindow", "<html><head/><body><p>اطلاعات بیشتر در مورد این <span style=\" font-size:16pt; color:#ff0000;\">بدافزار</span></p></body></html>", None))
-        self.Pos_logo.setText(_translate("MainWindow", "<html><head/><body><p><a href=\'http://regin.webcare.ir\'><img src=\":/img/logo.png\"/></a></p></body></html>", None))
+        self.Pos_logo.setText(_translate("MainWindow", "<html><head/><body><p><a href=\'http://regin.syscare.ir\'><img src=\":/img/logo.png\"/></a></p></body></html>", None))
         #self.RunScanner.setToolTip(_translate("MainWindow", "شروع اسکن فایل ها", None))
         self.RunScanner.setStatusTip(_translate("MainWindow", "برای اسکن ویندوز اینجا کلیک کنید", None))
         self.RunScanner.setWhatsThis(_translate("MainWindow", "شروع اسکن", None))
