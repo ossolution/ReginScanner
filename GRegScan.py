@@ -52,7 +52,7 @@ elif sys.platform == "darwin":
 elif sys.platform == "win32":
 	myappid = 'POS.ReginScanner.AntiVirus.1' # arbitrary string
 	ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
-	
+
 EVIL_FILES = [
     '\\usbclass.sys',
     '\\adpu160.sys',
